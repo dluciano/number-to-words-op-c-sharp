@@ -1,11 +1,11 @@
 ﻿namespace NumberToWords
 {
-    internal class Tens : Number, IPositional
+    internal class Tens : AbstractPositional
     {
-        public Tens(int value, IPositional prev) : base(value, prev)
+        public Tens(int value, AbstractPositional prev) : base(value, prev)
         {
             if (Previous.Value == 0 || Value == 10 || Value == 0)
-                Separator = "";
+                OnSeparator = p => "";
         }
 
         public override string ToWords()

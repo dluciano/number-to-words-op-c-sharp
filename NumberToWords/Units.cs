@@ -1,10 +1,10 @@
 ﻿namespace NumberToWords
 {
-    internal class Units : Number, IPositional
+    internal class Units : AbstractPositional
     {
         public Units(int value) : base(value)
         {
-            Separator = "";
+            OnSeparator = p => "";
         }
 
         public override string ToWords()

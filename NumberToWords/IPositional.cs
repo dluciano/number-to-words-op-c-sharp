@@ -1,10 +1,11 @@
-﻿namespace NumberToWords
+﻿using System;
+
+namespace NumberToWords
 {
-    internal interface IPositional : IWordable, INumber
+    internal interface IPositional : INumber
     {
         IPositional Previous { get; }
-        //TODO: I dont like the set here....
-        IPositional Next { get; set; }
-        string Separator { get; set; }
+        IPositional Next { get; }
+        Func<INumber, string> OnSeparator { get; set; }
     }
 }
