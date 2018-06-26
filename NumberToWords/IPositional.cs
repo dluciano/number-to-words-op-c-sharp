@@ -5,5 +5,6 @@
         IPositional Previous { get; }
         //TODO: I dont like the set here....
         IPositional Next { get; set; }
+        string Separator { get; set; }
     }
 }

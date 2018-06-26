@@ -2,9 +2,12 @@
 {
     internal class Tens : Number, IPositional
     {
-        public Tens(int value) : base(value) { }
-
-        public Tens(int value, IPositional prev) : base(value, prev) { }
+        public string TeensString => "teen";
+        public Tens(int value, IPositional prev) : base(value, prev)
+        {
+            if (Previous.Value == 0 || Value == 10)
+                Separator = "";
+        }
 
         public override string ToWords()
         {
@@ -21,15 +24,18 @@
                             return "Twelve";
                         case 3:
                             return "Thirteen";
+                        case 4:
+                            return "Fourteen";
                         case 5:
                             return "Fifteen";
+                        case 6:
+                            return "Sixteen";
+                        case 7:
+                            return "Seventeen";
                         case 8:
                             return "Eighteen";
-                        case 4:
-                        case 6:
-                        case 7:
                         case 9:
-                            return "teen";
+                            return "Nineteen";
                     }
                     return "Invalid!";
                 case 20:

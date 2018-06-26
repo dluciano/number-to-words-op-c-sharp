@@ -2,32 +2,17 @@
 {
     internal class Units : Number, IPositional
     {
-        public Units(int value) : base(value) { }
-
-        public Units(int value, IPositional prev) : base(value, prev) { }
+        public Units(int value) : base(value)
+        {
+            Separator = "";
+        }
 
         public override string ToWords()
         {
             //If the tens position is not zero and
             //The value of the unit is zero, do not return anything
-            if (Next != null && Next.Value != 0 && Value == 0)
+            if (Next != null && ((Next.Value != 0 && Value == 0) || Next.Value == 10))
                 return "";
-
-            //If the tens position is 10 do not
-            //return empty value when the unit is: 1,2,3,5,8 (edge cases)
-            //otherwise return the value normally
-            if (Next != null && Next.Value == 10)
-            {
-                switch (Value)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 5:
-                    case 8:
-                        return "";
-                }
-            }
 
             switch (Value)
             {

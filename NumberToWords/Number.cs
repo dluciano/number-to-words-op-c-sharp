@@ -13,10 +13,13 @@ namespace NumberToWords
 
         public IPositional Next { get; set; }
 
+        public virtual string Separator { get; set; }
+
         private Positionals _positionals;
 
         public Number(int value)
         {
+            Separator = "-";
             Value = value;
         }
 
@@ -68,10 +71,11 @@ namespace NumberToWords
 
                     div *= 10;
                 }
+                listWrapper.Reverse();
             }
 
             //TODO: How can I call the GetEnumerator here?
-            public string ToWords() => string.Join("", listWrapper.Select(p => p.ToWords()));
+            public string ToWords() => string.Join("", listWrapper.Select(p => p.ToWords() + p.Separator));
         }
     }
 }
