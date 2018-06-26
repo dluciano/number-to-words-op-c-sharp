@@ -9,5 +9,7 @@
 
             return NumberToWordsStructured.NtWMillions(i);
         }
+
+        public static string ToWordsOP(this int i) => new Number(i).ToWords();
     }
 }
