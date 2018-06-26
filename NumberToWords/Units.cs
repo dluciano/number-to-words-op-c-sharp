@@ -11,7 +11,7 @@
         {
             //If the tens position is not zero and
             //The value of the unit is zero, do not return anything
-            if (Next != null && ((Next.Value != 0 && Value == 0) || Next.Value == 10))
+            if (Next != null && (Value == 0 || Next.Value == 10))
                 return "";
 
             switch (Value)

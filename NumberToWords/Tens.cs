@@ -2,10 +2,9 @@
 {
     internal class Tens : Number, IPositional
     {
-        public string TeensString => "teen";
         public Tens(int value, IPositional prev) : base(value, prev)
         {
-            if (Previous.Value == 0 || Value == 10)
+            if (Previous.Value == 0 || Value == 10 || Value == 0)
                 Separator = "";
         }
 
@@ -13,6 +12,8 @@
         {
             switch (Value)
             {
+                case 0:
+                    return "";
                 case 10:
                     switch (Previous.Value)
                     {

@@ -44,7 +44,7 @@ namespace NumberToWords
             public Positionals(Number number)
             {
                 _number = number;
-                var div = 10;
+                var div = 1;
                 var auxVal = number.Value;
                 var digitVal = -1;
                 IPositional current = null;
@@ -52,23 +52,25 @@ namespace NumberToWords
 
                 while (true)
                 {
-                    digitVal = auxVal % div;
+                    digitVal = auxVal % 10;
                     switch (div)
                     {
-                        case 10:
+                        case 1:
                             current = new Units(digitVal);
                             break;
-                        case 100:
+                        case 10:
                             current = new Tens(digitVal * 10, prev);
+                            break;
+                        case 100:
+                            current = new Hundreds(digitVal * 100, prev, _number);
                             break;
                     }
                     listWrapper.Add(current);
                     prev = current;
 
-                    auxVal = auxVal / div;
+                    auxVal = auxVal / 10;
                     if (auxVal <= 0)
                         break;
-
                     div *= 10;
                 }
                 listWrapper.Reverse();
