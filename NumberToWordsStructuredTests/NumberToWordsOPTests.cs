@@ -119,7 +119,7 @@ namespace NumberToWordsTests
 
         [Theory]
         [InlineData(1000000,"One million")]
-        [InlineData(1048576,"One million Forty-Eight thousand Five hundred and Seventy-Six")]
+        [InlineData(1048576,"One million Forty-Eight thousand and Five hundred and Seventy-Six")]
         public void NtWMillionsTest(int n, string text)
         {
             n.ToWordsOP().ShouldBe(text);

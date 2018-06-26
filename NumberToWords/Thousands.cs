@@ -16,6 +16,6 @@ namespace NumberToWords
             thousandsNumber.Positionanls.OfType<Hundreds>().ToList().ForEach(d => d.OnSeparator = p => " ");
         }
 
-        public override string ToWords() => thousandsNumber.ToWords() + " thousand";
+        public override string ToWords() => Value == 0 ? "" : thousandsNumber.ToWords() + " thousand";
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,16 +22,14 @@ namespace NumberToWords
 
         public Number(int value) => Value = value;
 
-        public virtual string ToWords() => string.Join(string.Empty, Positionanls.Select(p => {
-
-            return p.ToWords() + p.OnSeparator(p);
-        }));
+        public virtual string ToWords() => string.Join(string.Empty, Positionanls.Select(p => p.ToWords() + p.OnSeparator(p)));
 
         private void CreatePositionals()
         {
             _positionals.Clear();
             var listWrapper = Enumerable.Empty<IPositional>().ToList();
-            var div = 1;
+            var positionalBase = 1;
+            var i = 0;
             var auxDiv = 10;
             var auxVal = Value;
             var digitVal = -1;
@@ -41,35 +38,47 @@ namespace NumberToWords
 
             while (true)
             {
-                digitVal = auxVal % auxDiv;
-                switch (div)
+                positionalBase = (int)Math.Pow(10, aux[i].Item1);
+                digitVal = auxVal % aux[i].Item2;
+                var x = digitVal * positionalBase;
+                switch (positionalBase)
                 {
                     case 1:
-                        current = new Units(digitVal);
+                        current = new Units(x);
                         break;
                     case 10:
-                        current = new Tens(digitVal * 10, prev);
+                        current = new Tens(x, prev);
                         break;
                     case 100:
-                        current = new Hundreds(digitVal * 100, prev, this);
+                        current = new Hundreds(x, prev, this);
                         break;
-                    case 1000:                        
-                        current = new Thousands(digitVal * 1000, prev, this);
+                    case 1000:
+                        current = new Thousands(x, prev, this);
+                        break;
+                    case 1_000_000:
+                        current = new Millions(x, prev, this);
                         break;
                 }
 
                 listWrapper.Add(current);
                 prev = (AbstractPositional)current;
 
-                auxVal = auxVal / auxDiv;
+                auxVal = auxVal / aux[i].Item2;
                 if (auxVal <= 0)
                     break;
-                div *= 10;
-                auxDiv = div <= 100 ? 10 : 1000;
+                i++;
             }
             listWrapper.Reverse();
             _positionals.AddRange(listWrapper);
         }
 
+        private readonly Tuple<int, int>[] aux = new Tuple<int, int>[]
+        {
+            new Tuple<int, int>(0,10),
+            new Tuple<int, int>(1,10),
+            new Tuple<int, int>(2,10),
+            new Tuple<int, int>(3,1000),
+            new Tuple<int, int>(6,1000),
+        };
     }
 }
