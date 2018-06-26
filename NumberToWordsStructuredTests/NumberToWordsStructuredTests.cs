@@ -2,7 +2,7 @@ using NumberToWords;
 using Shouldly;
 using Xunit;
 
-namespace NumberToWordsStructuredTests
+namespace NumberToWordsTests
 {
     public class NumberToWordsStructuredTests
     {
